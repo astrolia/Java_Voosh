@@ -171,4 +171,16 @@ public class AeronaveBean implements Serializable{
             }
         }
     }
+
+    //muddar o tipo de aeronave de acordo com a selecionada
+    public void prepararEdicao(Aeronave aero) {
+        this.aeronave = aero;
+
+        // mudda o tipo da aeronave
+        if (aero instanceof TurboFan) {
+            this.tipoAeronave = "TURBOFAN";
+        } else if (aero instanceof TurboElice) {
+            this.tipoAeronave = "TURBOELICE";
+        }
+    }
 }

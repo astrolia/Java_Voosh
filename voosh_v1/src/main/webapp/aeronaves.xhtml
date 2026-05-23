@@ -131,9 +131,12 @@
                     <f:param name="id" value="#{aero.id}" />
                 </p:button>
 
-                <p:commandButton icon="pi pi-pencil" update="formSistema" process="@this"
-                                 styleClass="ui-button-warning mr-2" title="Editar">
-                    <f:setPropertyActionListener value="#{aero}" target="#{aeronaveBean.aeronave}" />
+                <p:commandButton icon="pi pi-pencil"
+                                 action="#{aeronaveBean.prepararEdicao(aero)}"
+                                 update="formSistema"
+                                 process="@this"
+                                 styleClass="ui-button-warning mr-2"
+                                 title="Editar" >
                 </p:commandButton>
 
                 <p:commandButton icon="pi pi-trash" action="#{aeronaveBean.excluir}"
