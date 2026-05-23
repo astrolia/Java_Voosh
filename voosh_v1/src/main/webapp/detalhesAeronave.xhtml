@@ -1,0 +1,117 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="jakarta.faces.core">
+
+<h:head>
+    <title>Ficha Técnica da Aeronave - Voosh</title>
+</h:head>
+
+<f:metadata>
+    <f:viewAction action="#{aeronaveBean.carregarPorId}" />
+</f:metadata>
+
+<h:body style="margin: 20px; font-family: Arial, sans-serif; background-color: #f4f6f9;">
+    <p:panel header="Debug do Sistema" style="margin-bottom: 20px; background-color: #fff3cd;">
+        ID da aeronave: #{aeronaveBean.aeronave.id} <br/>
+        Nome retornado: #{aeronaveBean.aeronave.nome} <br/>
+        Classe detectada: #{aeronaveBean.tipoAeronaveSelecionada}
+    </p:panel>
+
+    <div style="margin-bottom: 20px;">
+        <p:button value="Voltar para Aeronaves" icon="pi pi-arrow-left" outcome="aeronaves.xhtml" styleClass="ui-button-flat" style="margin-right: .5rem;" />
+        <p:button value="Ir para Modelos" icon="pi pi-sliders-h" outcome="modelos.xhtml" styleClass="ui-button-flat" />
+    </div>
+
+    <h:form id="formDetalhes">
+
+        <p:panel header="Ficha Técnica: #{aeronaveBean.aeronave.nome} (#{aeronaveBean.aeronave.matricula})"
+                 style="max-width: 900px; margin: 0 auto;"
+                 rendered="#{not empty aeronaveBean.aeronave.id}">
+
+            <div class="ui-g">
+
+                <div class="ui-g-12 ui-md-6">
+                    <h:panelGrid columns="2" cellpadding="8" style="width:100%;">
+                        <f:facet name="header">
+                            <h:outputText value="Informações Operacionais" style="font-size: 1.2em; font-weight:bold; color:#2c3e50; display:block; margin-bottom:10px; border-bottom: 2px solid #3498db; padding-bottom:5px; text-align:left;"/>
+                        </f:facet>
+
+                        <h:outputText value="Matrícula:" style="font-weight: bold;"/>
+                        <h:outputText value="#{aeronaveBean.aeronave.matricula}" style="color: #34495e;"/>
+
+                        <h:outputText value="Autonomia:" style="font-weight: bold;"/>
+                        <h:outputText value="#{aeronaveBean.aeronave.autonomia} km" />
+
+                        <h:outputText value="Status Atual:" style="font-weight: bold;"/>
+                        <p:tag severity="#{aeronaveBean.aeronave.statusAeronave eq 'DISPONIVEL' ? 'success' : (aeronaveBean.aeronave.statusAeronave eq 'MANUTENCAO' ? 'danger' : 'warning')}"
+                               value="#{aeronaveBean.aeronave.statusAeronave}" />
+
+                        <h:outputText value="Nº de Turbinas:" style="font-weight: bold;"
+                                      rendered="#{aeronaveBean.tipoAeronaveSelecionada eq 'TurboFan'}"/>
+                        <h:outputText value="#{aeronaveBean.asTurboFan.nTurbinas}"
+                                      rendered="#{aeronaveBean.tipoAeronaveSelecionada eq 'TurboFan'}"/>
+
+                        <h:outputText value="Certificação RVSM:" style="font-weight: bold;"
+                                      rendered="#{aeronaveBean.tipoAeronaveSelecionada eq 'TurboFan'}"/>
+                        <h:outputText value="#{aeronaveBean.asTurboFan.rvsm ? 'Sim' : 'Não'}"
+                                      rendered="#{aeronaveBean.tipoAeronaveSelecionada eq 'TurboFan'}"/>
+
+                        <h:outputText value="Tipo de Hélice:" style="font-weight: bold;"
+                                      rendered="#{aeronaveBean.tipoAeronaveSelecionada eq 'TurboElice'}"/>
+                        <h:outputText value="#{aeronaveBean.asTurboElice.tipoHelice}"
+                                      rendered="#{aeronaveBean.tipoAeronaveSelecionada eq 'TurboElice'}"/>
+
+                        <h:outputText value="Capacidade STOL:" style="font-weight: bold;"
+                                      rendered="#{aeronaveBean.tipoAeronaveSelecionada eq 'TurboElice'}"/>
+                        <h:outputText value="#{aeronaveBean.asTurboElice.capacidadeSTOL ? 'Sim' : 'Não'}"
+                                      rendered="#{aeronaveBean.tipoAeronaveSelecionada eq 'TurboElice'}"/>
+                    </h:panelGrid>
+                </div>
+
+                <div class="ui-g-12 ui-md-6">
+                    <h:panelGrid columns="2" cellpadding="8" style="width:100%;">
+                        <f:facet name="header">
+                            <h:outputText value="Especificações do Modelo" style="font-size: 1.2em; font-weight:bold; color:#2c3e50; display:block; margin-bottom:10px; border-bottom: 2px solid #2ecc71; padding-bottom:5px; text-align:left;"/>
+                        </f:facet>
+
+                        <h:outputText value="Modelo:" style="font-weight: bold;"/>
+                        <h:outputText value="#{aeronaveBean.aeronave.modelo.nome}" />
+
+                        <h:outputText value="Fabricante:" style="font-weight: bold;"/>
+                        <h:outputText value="#{aeronaveBean.aeronave.modelo.fabricante}" />
+
+                        <h:outputText value="Motorização:" style="font-weight: bold;"/>
+                        <h:outputText value="#{aeronaveBean.aeronave.modelo.motor}" />
+
+                        <h:outputText value="Capacidade:" style="font-weight: bold;"/>
+                        <h:outputText value="#{aeronaveBean.aeronave.modelo.assentos} passageiros (pax)" />
+
+                        <h:outputText value="Carga Máxima:" style="font-weight: bold;"/>
+                        <h:outputText value="#{aeronaveBean.aeronave.modelo.cargaMax}">
+                            <f:convertNumber pattern="#,##0.00 kg" />
+                        </h:outputText>
+
+                        <h:outputText value="Capac. Combustível:" style="font-weight: bold;"/>
+                        <h:outputText value="#{aeronaveBean.aeronave.modelo.capacidadeCombustivel}">
+                            <f:convertNumber pattern="#,##0.00 L" />
+                        </h:outputText>
+
+                        <h:outputText value="Consumo Médio:" style="font-weight: bold;"/>
+                        <h:outputText value="#{aeronaveBean.aeronave.modelo.consumoCombustivel}">
+                            <f:convertNumber pattern="#,##0.00 L/h" />
+                        </h:outputText>
+                    </h:panelGrid>
+                </div>
+
+            </div>
+        </p:panel>
+
+        <p:outputPanel rendered="#{empty aeronaveBean.aeronave.id}" style="text-align:center; margin-top:50px;">
+            <i class="pi pi-exclamation-circle" style="font-size: 3rem; color: #95a5a6; display:block; margin-bottom:10px;"></i>
+            <h:outputText value="Nenhuma aeronave foi selecionada para visualização." style="font-size:1.2em; color:#7f8c8d;"/>
+        </p:outputPanel>
+
+    </h:form>
+</h:body>
+</html>
