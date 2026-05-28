@@ -97,24 +97,4 @@ public class Modelo {
         this.nome = nome;
     }
 
-    /*
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Modelo modelo = (Modelo) o;
-        return id == modelo.id; // Altere se o seu ID for Long (Objects.equals(id, modelo.id))
-    }
-
-    @Override
-    public int hashCode() {
-        return java.util.Objects.hash(id);
-    }
-
-    @Override
-    public String toString() {
-        return String.valueOf(this.id);
-    }
-
-     */
 }

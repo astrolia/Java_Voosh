@@ -4,7 +4,6 @@ import com.voosh.vooshv1.dao.AeronaveDAO;
 import com.voosh.vooshv1.dao.ModeloDAO;
 import com.voosh.vooshv1.model.Aeronave;
 import com.voosh.vooshv1.model.Modelo;
-import jakarta.enterprise.context.Dependent;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 
@@ -17,7 +16,7 @@ import java.util.List;
 public class AeronaveService implements Serializable{
 
     @Inject
-    private AeronaveDAO dao;
+    private AeronaveDAO aeronaveDAO;
 
     @Inject
     private ModeloDAO modeloDAO;
@@ -28,7 +27,7 @@ public class AeronaveService implements Serializable{
 
     public List<Aeronave> listarAeronaves(){
 
-        return dao.listarAeronave();
+        return aeronaveDAO.listarAeronave();
     }
 
 
@@ -52,15 +51,15 @@ public class AeronaveService implements Serializable{
 
         if(aeronave.getId() == 0){
 
-            dao.inserir(aeronave);
+            aeronaveDAO.inserir(aeronave);
         }else{
-            dao.atualizarAeronave(aeronave);
+            aeronaveDAO.atualizarAeronave(aeronave);
         }
     }
 
     public void excluirAeronave(int id) throws Exception{
 
-        boolean deletado = dao.excluirAeronave(id);
+        boolean deletado = aeronaveDAO.excluirAeronave(id);
 
         if(!deletado){
             throw new Exception("Não foi possível excluir a aeronave de ID " + id);
@@ -70,7 +69,7 @@ public class AeronaveService implements Serializable{
     //procura aeronave por id (long int)
     public Aeronave achar(Long id){
 
-            return dao.acharPorID(id);
+            return aeronaveDAO.acharPorID(id);
     }
 
 

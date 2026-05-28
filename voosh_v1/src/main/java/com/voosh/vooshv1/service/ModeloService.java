@@ -6,7 +6,6 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 
 import java.io.Serializable;
-import java.io.SyncFailedException;
 import java.util.List;
 
 
@@ -14,11 +13,11 @@ import java.util.List;
 public class ModeloService implements Serializable {
 
     @Inject
-    private ModeloDAO dao;
+    private ModeloDAO modeloDAO;
 
     public void salvarModelo(Modelo modelo) throws Exception{
         try{
-            dao.inserirModelo(modelo);
+            modeloDAO.inserirModelo(modelo);
 
         }catch (Exception e){
 
@@ -28,7 +27,7 @@ public class ModeloService implements Serializable {
 
     public void deletarModelo(Modelo modelo) throws Exception{
         try{
-            dao.excluirModelo(modelo.getId());
+            modeloDAO.excluirModelo(modelo.getId());
 
         }catch (Exception e){
 
@@ -38,10 +37,10 @@ public class ModeloService implements Serializable {
     }
 
     public List<Modelo> listarModelos(){
-        return dao.listarModelo();
+        return modeloDAO.listarModelo();
     }
 
     public void editarModelo(Modelo modelo){
-        dao.atualizarModelo(modelo);
+        modeloDAO.atualizarModelo(modelo);
     }
 }

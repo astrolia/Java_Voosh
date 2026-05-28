@@ -2,7 +2,7 @@ package com.voosh.vooshv1.controller;
 
 
 import com.voosh.vooshv1.model.*;
-import com.voosh.vooshv1.service.AeronaveService; // IMPORTA A SERVICE
+import com.voosh.vooshv1.service.AeronaveService;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -27,7 +27,7 @@ public class AeronaveBean implements Serializable{
 
     //injeta dependencia service
     @Inject
-    private AeronaveService service;
+    private AeronaveService aeronaveService;
 
     //contruir imediatamente
     @PostConstruct
@@ -39,11 +39,11 @@ public class AeronaveBean implements Serializable{
     //pesquisa modelos por nome
     public List<Modelo> sugerirModelos(String query) {
 
-        return service.sugerirModelos(query);
+        return aeronaveService.sugerirModelos(query);
     }
 
     public void carregarAeronaves(){
-        this.listaAeronave = service.listarAeronaves();
+        this.listaAeronave = aeronaveService.listarAeronaves();
     }
 
     //carrega os campos de acordo com o tipoAeronave selecionado (TurboFan por default)
@@ -59,7 +59,7 @@ public class AeronaveBean implements Serializable{
 
     public void salvar(){
         try{
-            service.salvarAeronave(this.aeronave);
+            aeronaveService.salvarAeronave(this.aeronave);
 
             adicionarMensagem(FacesMessage.SEVERITY_INFO, "Sucesso", "Aeronave salva com sucesso!");
             carregarAeronaves();
@@ -73,7 +73,7 @@ public class AeronaveBean implements Serializable{
     public void excluir(){
 
         try{
-            service.excluirAeronave(this.aeronave.getId());
+            aeronaveService.excluirAeronave(this.aeronave.getId());
             adicionarMensagem(FacesMessage.SEVERITY_INFO, "Excluído", "Aeronave removida.");
             limpar();
             carregarAeronaves();
@@ -164,7 +164,7 @@ public class AeronaveBean implements Serializable{
                 // tranforma o id em long int
                 Long idDesejado = Long.parseLong(paramId);
 
-                this.aeronave = service.achar(idDesejado);
+                this.aeronave = aeronaveService.achar(idDesejado);
 
             } catch (NumberFormatException e) {
                 System.out.println("Erro ao converter o ID da URL: " + paramId);

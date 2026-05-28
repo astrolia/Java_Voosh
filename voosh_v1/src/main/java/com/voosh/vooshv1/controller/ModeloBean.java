@@ -18,7 +18,7 @@ import java.util.List;
 public class ModeloBean implements Serializable {
 
     @Inject
-    private ModeloService service;
+    private ModeloService modeloService;
 
     private Modelo modelo;
     private List<Modelo> listaModelo;
@@ -35,17 +35,17 @@ public class ModeloBean implements Serializable {
     }
 
     public void carregarModelos(){
-        this.listaModelo = service.listarModelos();
+        this.listaModelo = modeloService.listarModelos();
     }
 
     public void salvar() {
         try {
             // Se o modelo já tem ID, atualiza
             if (this.modelo.getId() > 0) {
-                service.editarModelo(modelo);
+                modeloService.editarModelo(modelo);
                 adicionarMensagem(FacesMessage.SEVERITY_INFO, "Sucesso", "Modelo atualizado com sucesso!");
             } else {
-                service.salvarModelo(modelo);
+                modeloService.salvarModelo(modelo);
                 adicionarMensagem(FacesMessage.SEVERITY_INFO, "Sucesso", "Modelo salvo com sucesso!");
             }
             carregarModelos();
@@ -58,7 +58,7 @@ public class ModeloBean implements Serializable {
 
     public void excluir(Modelo modeloSelecionado) {
         try {
-            service.deletarModelo(modeloSelecionado);
+            modeloService.deletarModelo(modeloSelecionado);
             adicionarMensagem(FacesMessage.SEVERITY_INFO, "Sucesso", "Modelo deletado com sucesso!");
             carregarModelos();
             limpar();

@@ -11,7 +11,7 @@
 
     <div style="margin-bottom: 20px;">
         <p:button value="Aeronaves" icon="pi pi-send" styleClass="ui-button-outlined" disabled="true" style="margin-right: .5rem;" />
-        <p:button value="Ir para Modelos" icon="pi pi-sliders-h" outcome="modelos.xhtml" styleClass="ui-button-flat" />
+        <p:button value="Ir para Modelos" icon="pi pi-sliders-h" outcome="CadastrarModelos.xhtml" styleClass="ui-button-flat" />
     </div>
 
     <f:importConstants type="com.voosh.vooshv1.model.StatusAeronave" var="StatusEnum" />
@@ -34,7 +34,7 @@
             <h:panelGroup id="painelCampos">
                 <h:panelGrid columns="2" cellpadding="5">
 
-                    <p:outputLabel for="autoModelo" value="Buscar Modelo (Nome):" />
+                    <p:outputLabel for="autoModelo" value="Modelo:" />
                     <p:autoComplete id="autoModelo"
                                     value="#{aeronaveBean.aeronave.modelo}"
                                     completeMethod="#{aeronaveBean.sugerirModelos}"
@@ -125,7 +125,7 @@
             <p:column headerText="Ações" width="120">
 
                 <p:button icon="pi pi-eye"
-                          outcome="detalhesAeronave.xhtml"
+                          outcome="CadastrarAeronaveDetalhes.xhtml"
                           styleClass="ui-button-info mr-2"
                           title="Ver Ficha Técnica">
                     <f:param name="id" value="#{aero.id}" />
