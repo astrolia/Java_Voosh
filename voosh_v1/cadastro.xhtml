@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+<h:head>
+    <title>Novo Cadastro</title>
+</h:head>
+<h:body>
+    <h2>Crie sua conta</h2>
+    <h:form id="formCadastro">
+        <h:messages style="color:red" />
+
+        <h:panelGrid columns="2">
+            <h:outputLabel value="Nome Completo:" for="nome" />
+            <h:inputText id="nome" value="#{cadastroBean.nome}" required="true" />
+            
+            <h:outputLabel value="Número de telefone:" for="numeroCell" />
+            <h:inputText id="numeroCell" value="#{cadastroBean.numeroCell}" required="true"/>
+            
+            <h:outputLabel value="CPF (apenas números)" for="cpf" />
+            <h:inputText id="cpf" value="#{cadastroBean.cpf}" required="true" />
+                        
+            <h:outputLabel value="E-mail:" for="email" />
+            <h:inputText id="email" value="#{cadastroBean.email}" required="true" />
+
+            <h:outputLabel value="Senha:" for="senha" />
+            <h:inputSecret id="senha" value="#{cadastroBean.senha}" required="true" />
+
+            <h:outputLabel value="Eu sou um:" />
+            <h:selectOneRadio value="#{cadastroBean.tipoUsuario}" required="true">
+                <f:selectItem itemValue="CLIENTE" itemLabel="Cliente" />
+                <f:selectItem itemValue="FUNCIONARIO" itemLabel="Funcionário" />
+            </h:selectOneRadio>
+
+            <h:commandButton value="Cadastrar Agora" action="#{cadastroBean.cadastrar}" />
+        </h:panelGrid>
+        
+        <br/>
+        <h:link value="Já tem uma conta? Faça login" outcome="login.xhtml" />
+    </h:form>
+</h:body>
+</html>
